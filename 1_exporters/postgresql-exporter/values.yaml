@@ -9,6 +9,7 @@ keyvaultAccess:
   # 2) Get the ClientId: az identity show --name <UserNameFromPoint1> -g <ResourceGroupName> |  ConvertFrom-Json
   # More details can be found here (search for "az resource list"): https://atc.bmwgroup.net/confluence/display/ENINT/4Wheels+Additional+Configurations
   managedIdentityClientId: <ClientId>
+  objectKey: <Name_of_your_secret>
 
 dbSettings:
   dbusername: <dbUserName>

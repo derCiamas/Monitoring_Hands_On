@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "required": [
+        "exporter",
+        "keyvaultAccess",
+        "dbSettings"
+    ],
+    "properties": {
+        "exporter": {
+            "type": "object",
+            "required": [
+                "image"
+            ],
+            "properties": {
+                "image": {
+                    "type": "string"
+                }
+            }
+        },
+        "keyvaultAccess": {
+            "type": "object",
+            "required": [
+                "tenantId",
+                "keyVaultName",
+                "managedIdentityClientId",
+                "objectKey"
+            ],
+            "properties": {
+                "tenantId":{
+                    "type": "string"
+                },
+                "keyVaultName":{
+                    "type": "string"
+                },
+                "managedIdentityClientId":{
+                    "type": "string"
+                },
+                "objectKey":{
+                    "type": "string"
+                }
+            }
+        },
+        "dbSettings": {
+            "type": "object",
+            "required": [
+                "dbusername",
+                "dburi"
+            ],
+            "properties": {
+                "dbusername":{
+                    "type": "string"
+                },
+                "dburi":{
+                    "type": "string"
+                }
+            }
+        }
+    }
+ }

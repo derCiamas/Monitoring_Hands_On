@@ -1,0 +1,6 @@
+- targets:
+  - example.url
+  labels:
+    app: forExampleAppName
+    #Actually /metrics is default, used just as an example
+    __metrics_path__: /metrics
