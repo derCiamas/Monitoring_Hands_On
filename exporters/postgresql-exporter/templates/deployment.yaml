@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    exporters: postgresql
+  name: {{ .Release.Name }}-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      exporters: postgresql
+  template:
+    metadata:
+      labels:
+        exporters: postgresql
+        serviceSelector:  {{ .Release.Name }}-servicetarget
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+    spec:
+      hostname: postgresql
+      subdomain: exporters
+      containers:
+      - image: {{.Values.exporter.image}}
+        imagePullPolicy: Always
+        name: exporter-postgresql
+        ports:
+        - containerPort: 9187
+        env:
+        - name: DATA_SOURCE_URI
+          value: {{.Values.dbSettings.dburi}}
+        - name: DATA_SOURCE_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Release.Name }}-secret
+              key: username
+        - name: DATA_SOURCE_PASS
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-secrets-store
+              key: postgresql-exporter-user-pass
+        - name: PG_EXPORTER_AUTO_DISCOVER_DATABASES
+          value: "true"
+        - name: PG_EXPORTER_EXTEND_QUERY_PATH
+          value: "/etc/extendedqueries/extendedqueries.yaml"
+        volumeMounts:
+        - mountPath: /etc/extendedqueries
+          name: extended-queries
+        - mountPath: "/mnt/secrets-store"
+          name: exporters-secrets-store
+          readOnly: true
+      volumes:
+      - configMap:
+          defaultMode: 420
+          name: {{ .Release.Name }}-extended-queries
+        name: extended-queries
+      - name: exporters-secrets-store
+        csi:
+          driver: secrets-store.csi.k8s.io
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: {{ .Release.Name }}-secret-provider

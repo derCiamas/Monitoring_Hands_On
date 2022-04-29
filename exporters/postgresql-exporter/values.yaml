@@ -1,0 +1,15 @@
+exporter:
+  image: <yourContainerRegistry>.azurecr.io/postgres-exporter
+
+keyvaultAccess:
+  tenantId: <TenantId>
+  keyVaultName: <KeyVaultName>
+  # You can retrieve it be invoking the following commands
+  # 1) Get username: az resource list -g <ResourceGroupName> --query "[?contains(name, 'agentpool')]" |  ConvertFrom-Json
+  # 2) Get the ClientId: az identity show --name <UserNameFromPoint1> -g <ResourceGroupName> |  ConvertFrom-Json
+  # More details can be found here (search for "az resource list"): https://atc.bmwgroup.net/confluence/display/ENINT/4Wheels+Additional+Configurations
+  managedIdentityClientId: <ClientId>
+
+dbSettings:
+  dbusername: <dbUserName>
+  dburi: <dbUri ex. myDB-postgresql.postgres.database.azure.com:5432/dbName>

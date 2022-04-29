@@ -1,0 +1,7 @@
+pg_extendedQuery_tablescount:
+  query: "SELECT Count(0) FROM pg_catalog.pg_tables as count"
+  master: true
+  metrics:
+  - count:
+      usage: "GAUGE"
+      description: "Number of tables in DB"

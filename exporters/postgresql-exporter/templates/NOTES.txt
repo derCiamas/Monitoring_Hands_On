@@ -1,0 +1,4 @@
+The metrics are accessible inside cluster under the following URL:
+
+    http://{{ .Release.Name }}-service.{{ .Release.Namespace }}.svc.cluster.local/metrics
+
