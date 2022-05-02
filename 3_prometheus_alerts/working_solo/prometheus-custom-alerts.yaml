@@ -2,7 +2,7 @@ apiVersion: v1
 data:
   customAlertRules.yaml: |-
     groups:
-    - name: CustomAlerts
+    - name: MyCustomAlerts
       rules:
         - alert: HostRunningOutOfMemory
           expr: node_memory_MemAvailable_bytes * 1000000 < 200

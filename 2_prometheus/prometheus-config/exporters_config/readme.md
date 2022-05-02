@@ -1,1 +1,0 @@
-kubectl create cm prometheus-custom-exporters --from-file=c:\Dev\Monitoring_Hands_On\2_prometheus\prometheus-config\exporters_config
